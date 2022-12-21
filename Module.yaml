@@ -48,8 +48,8 @@ envs:
     value: 'S'
     type: 'select'
     options:
-      - 'MS'
       - 'S'
+      - 'MS'
       - 'US'
       - 'NS'
     dependencies: []
