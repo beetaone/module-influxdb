@@ -31,7 +31,6 @@ envs:
     description: API token with Write permissions to the selected bucket.
     value: 'api-token'
     type: 'text'
-    secret: True
     options: []
     dependencies: []
   - name: URL
@@ -39,7 +38,6 @@ envs:
     description: URL of your InfluxDB instance.
     value: 'https://us-west-2-1.aws.cloud2.influxdata.com'
     type: 'text'
-    secret: True
     options: []
     dependencies: []
   - name: Write Precision
