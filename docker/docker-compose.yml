@@ -1,13 +1,22 @@
 version: "3.0"
 services:
-  boilerplate:
+  influxdb:
     build:
       context: ../
       dockerfile: docker/Dockerfile
     environment:
-      MODULE_NAME: "boilerplate"
+      MODULE_NAME: "influxdb"
       MODULE_TYPE: "Output"
       INGRESS_HOST: "0.0.0.0"
       INGRESS_PORT: "80"
+      BUCKET: "<my-bucket>"
+      ORGANIZATION: "<my-org>"
+      API_TOKEN: "<my-token>"
+      URL: "https://us-west-2-1.aws.cloud2.influxdata.com"
+      WRITE_PRECISION: "S"
+      MEASUREMENT_KEY: "name"
+      TIMESTAMP_KEY: "time"
+      TAG_KEYS: "location"
+      FIELD_KEYS: "pressure, temperature"
     ports:
       - 80:80
