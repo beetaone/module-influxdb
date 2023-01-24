@@ -29,25 +29,27 @@ client = influxdb_client.InfluxDBClient(
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 write_precision_mapping = {
-    "MS": WritePrecision.MS,
     "S": WritePrecision.S,
+    "MS": WritePrecision.MS,
     "US": WritePrecision.US,
     "NS": WritePrecision.NS
 }
 
 __WRITE_PRECISION__ = write_precision_mapping[PARAMS["WRITE_PRECISION"]]
-__MEASUREMENT_KEY__ = PARAMS["MEASUREMENT_KEY"]
-__TIMESTAMP_KEY__ = PARAMS["TIMESTAMP_KEY"]
-
-__TAG_KEYS__ = [tag.strip() for tag in PARAMS["TAG_KEYS"].split(',')] if PARAMS["TAG_KEYS"] else None
 __FIELD_KEYS__ = [field.strip() for field in PARAMS["FIELD_KEYS"].split(',')] if PARAMS["FIELD_KEYS"] else None
+__TAG_KEYS__ = [tag.strip() for tag in PARAMS["TAG_KEYS"].split(',')] if PARAMS["TAG_KEYS"] else None
+__TIMESTAMP_KEY__ = PARAMS["TIMESTAMP_KEY"]
+__MEASUREMENT_NAME__ = PARAMS["MEASUREMENT_NAME"]
+if not __MEASUREMENT_NAME__:
+    __MEASUREMENT_NAME__ = __FIELD_KEYS__.join('+')
+
 
 def write_data(data):
     log.debug(f"Writing data: {data}")
     # create a Point object - representing a single data record, similar to a row in a SQL database table
     p = Point.from_dict(data,
                     write_precision=__WRITE_PRECISION__,
-                    record_measurement_key=__MEASUREMENT_KEY__,
+                    record_measurement_name=__MEASUREMENT_NAME__,
                     record_time_key=__TIMESTAMP_KEY__,
                     record_tag_keys=__TAG_KEYS__,
                     record_field_keys=__FIELD_KEYS__
