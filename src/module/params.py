@@ -1,13 +1,21 @@
 from os import getenv
+from logging import getLogger
+
+log = getLogger("params")
 
 PARAMS = {
-    "BUCKET": getenv("BUCKET", ""),
-    "ORGANIZATION": getenv("ORGANIZATION", ""),
-    "API_TOKEN": getenv("API_TOKEN", ""),
-    "URL": getenv("URL", "https://us-west-2-1.aws.cloud2.influxdata.com"),
-    "WRITE_PRECISION": getenv("WRITE_PRECISION", "S"),
-    "MEASUREMENT_KEY": getenv("MEASUREMENT_KEY", ""),
+    "URL": getenv("URL"),
+    "ORGANIZATION": getenv("ORGANIZATION"),
+    "BUCKET": getenv("BUCKET"),
+    "API_TOKEN": getenv("API_TOKEN"),
+    "WRITE_PRECISION": getenv("WRITE_PRECISION", "NS"),
+    "FIELD_KEYS": getenv("FIELD_KEYS"),
     "TIMESTAMP_KEY": getenv("TIMESTAMP_KEY", ""),
     "TAG_KEYS": getenv("TAG_KEYS", ""),
-    "FIELD_KEYS": getenv("FIELD_KEYS", "")
+    "MEASUREMENT_NAME": getenv("MEASUREMENT_NAME", ""),
 }
+
+for nonoptionalEnv in ["URL", "ORGANIZATION", "BUCKET", "API_TOKEN", "FIELD_KEYS"]:
+    if PARAMS[nonoptionalEnv] is None:
+        log.error(f"Non-optional parameter {nonoptionalEnv} not set!")
+        exit(1)

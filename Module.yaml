@@ -1,28 +1,35 @@
 displayName: 'InfluxDB'
 moduleName: 'influxdb'
 description: 'Write data to a selected InfluxDB bucket.'
-versionName: 'v1.0.0'
+versionName: 'v2.0.0'
 isPublic: true
 categories:
   - 'Databases'
 type: 'Output'
 image:
   name: 'weevenetwork/influxdb'
-  tag: 'v1.0.0'
+  tag: 'v2.0.0'
   homepage: 'https://hub.docker.com/r/weevenetwork/influxdb'
 repository: 'https://github.com/weeve-modules/influxdb'
 envs:
-  - name: Bucket
-    key: BUCKET
-    description: Bucket name to write data to.
-    value: 'my-bucket'
+  - name: URL
+    key: URL
+    description: URL of your InfluxDB instance.
+    value: 'https://us-west-2-1.aws.cloud2.influxdata.com'
     type: 'text'
     options: []
     dependencies: []
   - name: Organization
     key: ORGANIZATION
-    description: Organization name.
+    description: Organization name. Used to uniquely identify the bucket.
     value: 'my-organization'
+    type: 'text'
+    options: []
+    dependencies: []
+  - name: Bucket
+    key: BUCKET
+    description: Bucket name to write data to.
+    value: 'my-bucket'
     type: 'text'
     options: []
     dependencies: []
@@ -33,17 +40,10 @@ envs:
     type: 'text'
     options: []
     dependencies: []
-  - name: URL
-    key: URL
-    description: URL of your InfluxDB instance.
-    value: 'https://us-west-2-1.aws.cloud2.influxdata.com'
-    type: 'text'
-    options: []
-    dependencies: []
   - name: Write Precision
     key: WRITE_PRECISION
     description: Sets the precision for the supplied time values.
-    value: 'S'
+    value: 'NS'
     type: 'select'
     options:
       - 'S'
@@ -51,31 +51,31 @@ envs:
       - 'US'
       - 'NS'
     dependencies: []
-  - name: Measurement Key
-    key: MEASUREMENT_KEY
-    description: Label in the incoming data which is assigned to the specified measurement name.
-    value: 'label-with-name'
+  - name: Field Keys
+    key: FIELD_KEYS
+    description: List of comma (,) separated JSON keys, corresponding to the measurement data values. The same keys will be used as field names in InfluxDB.
+    value: 'pressure, temperature'
     type: 'text'
     options: []
     dependencies: []
-  - name: Timestamp Key
+  - name: Timestamp Key (optional)
     key: TIMESTAMP_KEY
-    description: Label of the timestamp. If not specified (left empty), then InfluxDB will generate timestamp for data.
-    value: 'timestamp-label'
+    description: JSON key of the timestamp. If not specified (left empty), then InfluxDB will generate timestamp for data.
+    value: 'timestamp'
     type: 'text'
     options: []
     dependencies: []
-  - name: Tag Keys
+  - name: Tag Keys (optional)
     key: TAG_KEYS
-    description: List of comma (,) separated labels to use as a tag.
+    description: List of comma (,) separated JSON keys, corresponding to the tag values. The same keys will be used as tag names in InfluxDB. Can be left empty if you don't have tags in the incoming data.
     value: 'location, version'
     type: 'text'
     options: []
     dependencies: []
-  - name: Field Keys
-    key: FIELD_KEYS
-    description: List of comma (,) separated labels to use as a field.
-    value: 'pressure, temperature'
+  - name: Measurement Name (optional)
+    key: MEASUREMENT_NAME
+    description: A static name to group the measured data by. If left empty, it will be generated automatically by concatenating the field names with '+'.
+    value: 'pressure+temperature'
     type: 'text'
     options: []
     dependencies: []

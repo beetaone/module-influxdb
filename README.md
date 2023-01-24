@@ -3,7 +3,7 @@
 |           |                                                                         |
 | --------- | ----------------------------------------------------------------------- |
 | Name      | InfluxDB                                                                |
-| Version   | v1.0.0                                                                  |
+| Version   | v2.0.0                                                                  |
 | DockerHub | [weevenetwork/influxdb](https://hub.docker.com/r/weevenetwork/influxdb) |
 | Authors   | Jakub Grzelak                                                           |
 
@@ -11,6 +11,7 @@
   - [Description](#description)
   - [Environment Variables](#environment-variables)
     - [Module Specific](#module-specific)
+    - [Example](#example)
     - [Set by the weeve Agent on the edge-node](#set-by-the-weeve-agent-on-the-edge-node)
   - [Dependencies](#dependencies)
   - [Input](#input)
@@ -26,17 +27,39 @@ Write data to a selected InfluxDB bucket.
 
 The following module configurations can be provided in a data service designer section on weeve platform:
 
-| Name            | Environment Variables | type   | Description                                                                                            |
-| --------------- | --------------------- | ------ | ------------------------------------------------------------------------------------------------------ |
-| Bucket          | BUCKET                | string | Bucket name to write data to.                                                                          |
-| Organization    | ORGANIZATION          | string | Organization name.                                                                                     |
-| API Token       | API_TOKEN             | string | API token with Write permissions to the selected bucket.                                               |
-| URL             | URL                   | string | URL of your InfluxDB instance.                                                                         |
-| Write Precision | WRITE_PRECISION       | string | Sets the precision for the supplied time values (options: MS, S, US, NS).                              |
-| Measurement Key | MEASUREMENT_KEY       | string | Label in the incoming data which is assigned to the specified measurement name.                        |
-| Timestamp Key   | TIMESTAMP_KEY         | string | Label of the timestamp. If not specified (left empty), then InfluxDB will generate timestamp for data. |
-| Tag Keys        | TAG_KEYS              | string | List of comma (,) separated labels to use as a tag.                                                    |
-| Field Keys      | FIELD_KEYS            | string | List of comma (,) separated labels to use as a field.                                                  |
+| Name            | Environment Variables | type   | Description                                                                                                                                                                                 |
+| --------------- | --------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| URL             | URL                   | string | URL of your InfluxDB instance.                                                                                                                                                              |
+| Organization    | ORGANIZATION          | string | Organization name. Used to uniquely identify the bucket.                                                                                                                                    |
+| Bucket          | BUCKET                | string | Bucket name to write data to.                                                                                                                                                               |
+| API Token       | API_TOKEN             | string | API token with Write permissions to the selected bucket.                                                                                                                                    |
+| Write Precision | WRITE_PRECISION       | string | Sets the precision for the supplied time values (options: S, MS, US, NS).                                                                                                                   |
+| Field Keys      | FIELD_KEYS            | string | List of comma (,) separated JSON keys, corresponding to the measurement data values. The same keys will be used as field names in InfluxDB.                                                 |
+| Timestamp Key   | TIMESTAMP_KEY         | string | JSON key of the timestamp. If not specified (left empty), then InfluxDB will generate timestamp for data.                                                                                   |
+| Tag Keys        | TAG_KEYS              | string | List of comma (,) separated JSON keys, corresponding to the tag values. The same keys will be used as tag names in InfluxDB. Can be left empty if you don't have tags in the incoming data. |
+| Measurement Key | MEASUREMENT_NAME      | string | A static name to group the measured data by. If left empty, it will be generated automatically by concatenating the field names with '+'.                                                   |
+
+### Example
+
+If your incoming data looks like this
+```JSON
+{
+    "location": "warehouse_125",
+    "version": "2021.06.05.5874",
+    "pressure": 125,
+    "temperature": 10,
+    "created": 1632208639,
+}
+```
+
+you might want to set the parameters to
+```
+FIELD_KEYS=pressure,temperature
+TIMESTAMP_KEY=created
+TAG_KEYS=location,version
+MEASUREMENT_NAME=roomConditions
+```
+
 
 ### Set by the weeve Agent on the edge-node
 
