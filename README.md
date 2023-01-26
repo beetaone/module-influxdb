@@ -3,7 +3,7 @@
 |           |                                                                         |
 | --------- | ----------------------------------------------------------------------- |
 | Name      | InfluxDB                                                                |
-| Version   | v2.0.0                                                                  |
+| Version   | v2.0.1                                                                  |
 | DockerHub | [weevenetwork/influxdb](https://hub.docker.com/r/weevenetwork/influxdb) |
 | Authors   | Jakub Grzelak                                                           |
 
@@ -37,7 +37,7 @@ The following module configurations can be provided in a data service designer s
 | Field Keys      | FIELD_KEYS            | string | List of comma (,) separated JSON keys, corresponding to the measurement data values. The same keys will be used as field names in InfluxDB.                                                 |
 | Timestamp Key   | TIMESTAMP_KEY         | string | JSON key of the timestamp. If not specified (left empty), then InfluxDB will generate timestamp for data.                                                                                   |
 | Tag Keys        | TAG_KEYS              | string | List of comma (,) separated JSON keys, corresponding to the tag values. The same keys will be used as tag names in InfluxDB. Can be left empty if you don't have tags in the incoming data. |
-| Measurement Key | MEASUREMENT_NAME      | string | A static name to group the measured data by. If left empty, it will be generated automatically by concatenating the field names with '+'.                                                   |
+| Measurement Key | MEASUREMENT_NAME      | string | A static name to group the measured data by. If left empty, it will be generated automatically by concatenating the field names, using '_' as separator.                                                   |
 
 ### Example
 

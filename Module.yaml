@@ -1,14 +1,14 @@
 displayName: 'InfluxDB'
 moduleName: 'influxdb'
 description: 'Write data to a selected InfluxDB bucket.'
-versionName: 'v2.0.0'
+versionName: 'v2.0.1'
 isPublic: true
 categories:
   - 'Databases'
 type: 'Output'
 image:
   name: 'weevenetwork/influxdb'
-  tag: 'v2.0.0'
+  tag: 'v2.0.1'
   homepage: 'https://hub.docker.com/r/weevenetwork/influxdb'
 repository: 'https://github.com/weeve-modules/influxdb'
 envs:
@@ -74,8 +74,8 @@ envs:
     dependencies: []
   - name: Measurement Name (optional)
     key: MEASUREMENT_NAME
-    description: A static name to group the measured data by. If left empty, it will be generated automatically by concatenating the field names with '+'.
-    value: 'pressure+temperature'
+    description: A static name to group the measured data by. If left empty, it will be generated automatically by concatenating the field names, using '_' as separator.
+    value: 'pressure_temperature'
     type: 'text'
     options: []
     dependencies: []

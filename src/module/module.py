@@ -41,7 +41,7 @@ __TAG_KEYS__ = [tag.strip() for tag in PARAMS["TAG_KEYS"].split(',')] if PARAMS[
 __TIMESTAMP_KEY__ = PARAMS["TIMESTAMP_KEY"]
 __MEASUREMENT_NAME__ = PARAMS["MEASUREMENT_NAME"]
 if not __MEASUREMENT_NAME__:
-    __MEASUREMENT_NAME__ = __FIELD_KEYS__.join('+')
+    __MEASUREMENT_NAME__ = '_'.join(__FIELD_KEYS__)
 
 
 def write_data(data):
