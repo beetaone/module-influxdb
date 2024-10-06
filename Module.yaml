@@ -7,10 +7,10 @@ categories:
   - 'Databases'
 type: 'Output'
 image:
-  name: 'weevenetwork/influxdb'
+  name: 'beetaone/influxdb'
   tag: 'v2.0.1'
-  homepage: 'https://hub.docker.com/r/weevenetwork/influxdb'
-repository: 'https://github.com/weeve-modules/influxdb'
+  homepage: 'https://hub.docker.com/r/beetaone/influxdb'
+repository: 'https://github.com/beetaone/module-influxdb'
 envs:
   - name: URL
     key: URL
@@ -90,4 +90,4 @@ tags:
   - 'Output'
   - 'InfluxDB'
   - 'Databases'
-icon: 'https://icons-020-demo.s3.eu-central-1.amazonaws.com/mi_influxdb_output.png'
+icon: 'https://icons-020-demo.s3.eu-central-1.amazonaws.com/mi_influxdb_output.png't.png'

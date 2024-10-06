@@ -4,7 +4,7 @@
 | --------- | ----------------------------------------------------------------------- |
 | Name      | InfluxDB                                                                |
 | Version   | v2.0.1                                                                  |
-| DockerHub | [weevenetwork/influxdb](https://hub.docker.com/r/weevenetwork/influxdb) |
+| DockerHub | [beetaone/influxdb](https://hub.docker.com/r/beetaone/influxdb) |
 | Authors   | Jakub Grzelak                                                           |
 
 - [InfluxDB](#influxdb)
@@ -12,7 +12,7 @@
   - [Environment Variables](#environment-variables)
     - [Module Specific](#module-specific)
     - [Example](#example)
-    - [Set by the weeve Agent on the edge-node](#set-by-the-weeve-agent-on-the-edge-node)
+    - [Set by the beetaone Agent on the edge-node](#set-by-the-beetaone-agent-on-the-edge-node)
   - [Dependencies](#dependencies)
   - [Input](#input)
   - [Output](#output)
@@ -25,7 +25,7 @@ Write data to a selected InfluxDB bucket.
 
 ### Module Specific
 
-The following module configurations can be provided in a data service designer section on weeve platform:
+The following module configurations can be provided in a data service designer section on beetaone platform:
 
 | Name            | Environment Variables | type   | Description                                                                                                                                                                                 |
 | --------------- | --------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -61,9 +61,9 @@ MEASUREMENT_NAME=roomConditions
 ```
 
 
-### Set by the weeve Agent on the edge-node
+### Set by the beetaone Agent on the edge-node
 
-Other features required for establishing the inter-container communication between modules in a data service are set by weeve agent.
+Other features required for establishing the inter-container communication between modules in a data service are set by beetaone agent.
 
 | Environment Variables | type   | Description                                    |
 | --------------------- | ------ | ---------------------------------------------- |
